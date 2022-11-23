@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: capstone-app-2.0.0
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: capstone-app
+      version: 2.0.0
+  template:
+    metadata:
+      labels:
+        app: capstone-app
+        version: 2.0.0
+    spec:
+      containers:
+      - name: capstone-app
+        image: ${DOCKER_IMAGE}
+        ports:
+        - containerPort: 80

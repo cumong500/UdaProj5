@@ -14,6 +14,8 @@ install:
 	# This should be run from inside a virtualenv
 	pip install --upgrade pip &&\
 		pip install -r requirements.txt
+	sudo wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64 &&\
+    sudo chmod +x /bin/hadolint
 
 test:
 	# Additional, optional, tests could go here
@@ -31,8 +33,10 @@ lint:
 run-app:
 	python3 app.py
 
-run-docker: build-docker
+run-docker:
+	chmod u+x run_docker.sh
 	./run_docker.sh
 	
-upload-docker: build-docker
+upload-docker:
+	chmod u+x upload_docker.sh
 	./upload_docker.sh
