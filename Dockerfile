@@ -16,4 +16,4 @@ RUN pip install --no-cache-dir --upgrade pip && \
 EXPOSE 80
 ## Step 5:
 # Run app.py at container launch
-CMD ["python", "app.py"]s
+CMD ["python", "app.py"]
