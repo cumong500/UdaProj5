@@ -90,6 +90,8 @@ jobs:
 
             #Push  
             docker push ${DOCKER_ID}/${DOCKER_REPOSITORY}:2.0.0
+            
+            exit 0
 
   deploy-green:
     docker:
