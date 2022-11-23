@@ -10,5 +10,5 @@ spec:
     name: http
   selector:
     app: capstone-app
-    version: 1.0.0
+    version: v1.0.0
   type: LoadBalancer

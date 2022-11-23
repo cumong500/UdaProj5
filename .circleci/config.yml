@@ -86,10 +86,10 @@ jobs:
             docker build --tag=proj5 .
             #Login
             docker login -u $DOCKER_ID -p $DOCKER_PASSWORD
-            docker tag proj5 ${DOCKER_ID}/${DOCKER_REPOSITORY}:2.0.0
+            docker tag proj5 ${DOCKER_ID}/${DOCKER_REPOSITORY}:v2.0.0
             #Push  
-            docker push ${DOCKER_ID}/${DOCKER_REPOSITORY}:2.0.0
-            
+            docker push ${DOCKER_ID}/${DOCKER_REPOSITORY}:v2.0.0
+
   deploy-green:
     docker:
       - image: cimg/python:3.7.13
@@ -105,7 +105,7 @@ jobs:
       - run:
           name: Deploy new version as green
           command: |
-            export DOCKER_IMAGE=${DOCKER_HUB_ID}/${DOCKER_REPOSITORY}:2.0.0
+            export DOCKER_IMAGE=${DOCKER_ID}/${DOCKER_REPOSITORY}:v2.0.0
             
             envsubst < deployment.v2.yaml | kubectl apply --filename -
             
@@ -146,7 +146,7 @@ jobs:
           command: |
             for deploy in $(kubectl get deployments -o jsonpath="{.items[*].metadata.name}" | grep capstone-app);
             do
-              if [[ $deploy != capstone-app-2.0.0 ]];
+              if [[ $deploy != capstone-app-v2.0.0 ]];
               then
                 kubectl delete deployments $deploy
               fi
@@ -168,5 +168,5 @@ workflows:
           requires: [build-and-push-docker-image]
       - deploy-new-blue:
           requires: [deploy-green]
-      # - remove-old-blue:
-      #     requires: [deploy-new-blue]            
+      - remove-old-blue:
+          requires: [deploy-new-blue]            
