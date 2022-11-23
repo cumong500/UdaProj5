@@ -89,7 +89,7 @@ jobs:
             docker tag proj5 ${DOCKER_ID}/${DOCKER_REPOSITORY}:2.0.0
             #Push  
             docker push ${DOCKER_ID}/${DOCKER_REPOSITORY}:2.0.0
-            exit 0
+            
   deploy-green:
     docker:
       - image: cimg/python:3.7.13
@@ -168,5 +168,5 @@ workflows:
           requires: [build-and-push-docker-image]
       - deploy-new-blue:
           requires: [deploy-green]
-      - remove-old-blue:
-          requires: [deploy-new-blue]            
+      # - remove-old-blue:
+      #     requires: [deploy-new-blue]            

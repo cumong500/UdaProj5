@@ -9,5 +9,5 @@ docker build --tag=proj5 .
 # List docker images
 docker images list
 # Step 3: 
-# Run flask app
+# Run app
 docker run -p 8000:80 proj5
